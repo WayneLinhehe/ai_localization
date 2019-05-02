@@ -6,9 +6,11 @@ import csv
 
 def get_test_data() :
 
-    with open('LAB_DATA_2019_3_10.csv', newline='') as csvfile:
-    
+    #with open('LAB_DATA_2019_3_10.csv', newline='') as csvfile:
+    with open('LAB_DATA_ALL_2.csv', newline='') as csvfile:
+    #with open('test.csv', newline='') as csvfile:
 
+        # 讀取 CSV 檔案內容
         rows = csv.reader(csvfile)
 
         data1 = []
@@ -30,20 +32,21 @@ def get_test_data() :
                 data0[4] = int(row[17])
                 k = k + 1
                 j = 0
-            
-            elif uu == 'a709' :
+            elif uu == 'a5ab' :
+            #elif uu == 'a709' :
                 data0[0] = int(row[13])
-            
-            elif uu == 'a56d' :
+            elif uu == 'a5dd' :
+            #elif uu == 'a56d' :
                 data0[1] = int(row[13])
-            
-            elif uu == 'a537' :
+            elif uu == 'a6dd' :
+            #elif uu == 'a537' :
                 data0[2] = int(row[13])
 
             if data0[0] != 0 and data0[1] != 0 and data0[2] != 0 :
                 #print( i , "  " , data0 )
                 
-                if j != 0 and j < 9 :
+                if j != 0 and j < 45 :
+                #if j != 0 and j < 9 :
                     data1.append( data0 )
                     i = i + 1
                     

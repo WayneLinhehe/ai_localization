@@ -3,18 +3,25 @@ import torch.nn.functional as F     # 激励函数都在这
 import torch.utils.data as Data
 import math
 
+'''
 from train_data1 import get_train_data
 from test_data1 import get_test_data
+'''
+from train_data_big import get_train_data
+from train_data_big import get_train_data_half
+from test_data_big import get_test_data
 
 
 
-#跑其它測資
+#regresion
 
-#train_data
 
 
 if __name__ == '__main__':
 
+    #train_net_sae_net
+
+    #data7 = get_train_data_half()
     data7 = get_train_data()
 
     data0=[]
@@ -42,9 +49,64 @@ if __name__ == '__main__':
 
     data0 = torch.FloatTensor(data0 )
     data1 = torch.FloatTensor(data1)
+
     x=data0
 
     y = data1
+
+
+
+
+
+    #train_net_sae
+    
+    #data7 = get_train_data_half()
+    data7 = get_train_data()
+
+    data0=[]
+    data1=[]
+
+    i = 0
+
+    for row in data7:
+
+        
+        data0.append([])
+
+        for o in range(0,3) :
+            if (  math.isnan(row[o] )) :
+                data0[i].append(-1)
+            else :
+                data0[i].append(row[o])
+
+        data1.append([])
+        data1[i].append(  row[3])
+        data1[i].append(  row[4] )
+        #data1[i].append(0)
+
+        i = i + 1
+
+    data0 = torch.FloatTensor(data0 )
+    data1 = torch.FloatTensor(data1)
+
+    x_half=data0
+
+    y_half = data1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     #test_data
     data8 = get_test_data()
@@ -83,8 +145,7 @@ if __name__ == '__main__':
 
     #------ 0.87 -1 0.63 -1 -1 -1 -1 -1 -1
 
-    torch_dataset = Data.TensorDataset(x , y)
-    #torch_dataset = Data.TensorDataset(data_tensor=x , target_tensor=y)
+    torch_dataset = Data.TensorDataset(x_half , y_half)
     loader = Data.DataLoader(
         dataset=torch_dataset,
         batch_size=10,
@@ -92,8 +153,8 @@ if __name__ == '__main__':
         num_workers=1,
     )
 
-    torch_dataset1 = Data.TensorDataset(x , x)
-    #torch_dataset = Data.TensorDataset(data_tensor=x , target_tensor=y)
+    #torch_dataset1 = Data.TensorDataset(x , x)
+    torch_dataset1 = Data.TensorDataset(x_half , x_half)
     loader1 = Data.DataLoader(
         dataset=torch_dataset1,
         batch_size=10,
@@ -152,7 +213,6 @@ if __name__ == '__main__':
     
     def weights_init(m):
         classname = m.__class__.__name__
-        # print(classname)
         if classname.find('Conv3d') != -1:
             torch.nn.init.xavier_normal_(m.weight.data)
             #torch.nn.init.constant_(m.bias.data, 0.0)
@@ -174,16 +234,13 @@ if __name__ == '__main__':
         xp44 = 0
                 
         for o in prediction :
-                #print(o[0].item())
-                #print(o[1].item())
-            
 
             xp1 = float( o[0].item() ) - float( test_y[oo][0].item() )
             xp2 = float( o[1].item() ) - float( test_y[oo][1].item() )
 
             xp33 = ( xp1**2 + xp2**2 ) ** 0.5
             xp44 = xp44 + xp33 
-            if ( xp33 > 8) :
+            if ( xp33 > 0.5) :
                 if ( oo < 100 ) :
                     pass
                 pp = pp + 1
@@ -199,20 +256,12 @@ if __name__ == '__main__':
         print('mean dis error : ', xp44/1111 , ' m')
         print()
 
-        #print(ppp0)
-        #print(ppp2)
-        #print(loss.type)
-        #print(net.state_dict)
-
-
     def test_val1() : # NET_SAE test
         prediction = net_sae(test_x)     
         
         all_err = []
                 
         for o in prediction :
-                #print(o[0].item())
-                #print(o[1].item())
 
             err_sum = 0
             for qs in range(0,3) :
@@ -222,11 +271,6 @@ if __name__ == '__main__':
             all_err.append(err_sum)
 
         print(all_err)
-
-        #print(ppp0)
-        #print(ppp2)
-        #print(loss.type)
-        #print(net.state_dict)
 
 
     def test_val2() :
@@ -238,16 +282,15 @@ if __name__ == '__main__':
         xp44 = 0
                 
         for o in prediction :
-                #print(o[0].item())
-                #print(o[1].item())
             
 
             xp1 = float( o[0].item() ) - float( test_y[oo][0].item() )
             xp2 = float( o[1].item() ) - float( test_y[oo][1].item() )
 
             xp33 = ( xp1**2 + xp2**2 ) ** 0.5
+            
             xp44 = xp44 + xp33 
-            if ( xp33 > 8) :
+            if ( xp33 > 0.5) :
                 if ( oo < 100 ) :
                     pass
                 pp = pp + 1
@@ -263,16 +306,6 @@ if __name__ == '__main__':
         print('mean dis error : ', xp44/1111 , ' m')
         print()
 
-        #print(ppp0)
-        #print(ppp2)
-        #print(loss.type)
-        #print(net.state_dict)
-
-
-
-
-
-    #print(net)  # net 的结构
 
     #optimizer = torch.optim.SGD(net.parameters(), lr=0.0001)  # 传入 net 的所有参数, 学习率
     optimizer = torch.optim.Adam(net.parameters(), lr=0.001)  # 传入 net 的所有参数, 学习率
@@ -343,9 +376,6 @@ if __name__ == '__main__':
                 ppp1 = ppp1 + loss.item()
                 ppp2 = ppp1
 
-                #print(pp)
-                #print(loss.item())
-                #print(ppp1)
                 ppp0 = pp
                 
 
@@ -375,7 +405,6 @@ if __name__ == '__main__':
             
             if ( (epoch%3) == 0 and ooo < 20) :
                 
-                #print(epoch)
                     
                 oo = 0
                     
@@ -387,7 +416,6 @@ if __name__ == '__main__':
                     for qs in range(0,3) :
                         err_sum = err_sum + abs( float( o[qs].item() ) - float( test_x[oo][qs].item() ) )
                     
-                    #print(epoch , '  ' , kk , '  ' , err_sum)
                     oo = oo + 1
 
                 ooo = ooo + 1
@@ -457,7 +485,7 @@ if __name__ == '__main__':
     ppp2 = 0
     ppp0 = 0
 
-    for epoch in range(201):   # NET_SAE_NET
+    for epoch in range(2001):   # NET_SAE_NET
         
         ppp1 = 0
         tt = 0
@@ -467,17 +495,12 @@ if __name__ == '__main__':
             b_x = (batch_x).cuda()
             b_y = (batch_y).cuda()
 
-
             prediction = net_sae_net(b_x)     # 喂给 net 训练数据 x, 输出预测值
             
             loss2 = loss_func2(prediction, b_y)
             
-
-
             if ( (epoch%5) == 0 ) :
                 
-                #print(epoch)
-                    
                 oo = 0
                 pp = 0
                     
@@ -491,34 +514,25 @@ if __name__ == '__main__':
                     xp33 = ( xp1**2 + xp2**2 ) ** 0.5
 
                     if ( xp33 > 20) :
-                    #if ( abs(xp1) > 5) or (abs(xp2) > 5) :
-                        #print(epoch,'  ',tt,'   ' ,oo,'  ',o , '  ' , y[oo] , '  ', xp33 ,  '  <--' )
-                        pass
                         pp = pp + 1
                     else :
-                        #print(epoch,'  ',tt,'   ' ,oo,'  ',o , '  ' , y[oo] , '  ', xp33)
                         pass
 
                     oo = oo + 1
-                    
                 
                 ppp0 = ppp0 + pp
                 ppp1 = ppp1 + loss2.item()
                 ppp2 = ppp1
 
-                #print(pp)
-                #print(loss.item())
-                #print(ppp1)
                 ppp0 = pp
                 
-
-
             optimizer2.zero_grad()
             loss2.backward()
             optimizer2.step()
             tt = tt +1
-
+        
         test_val2()
+        
     
     
 
