@@ -119,8 +119,8 @@ def get_test_data() :
             i[3] = float( i[3] )
             i[4] = float( i[4] )
 
-            #print(i)
+            print(i)
         
         return data2
 
-#get_test_data()
+get_test_data()

@@ -247,6 +247,14 @@ if __name__ == '__main__':
         for o in prediction :
             
 
+            print( 'oo :' , oo )
+            print(o[0].item())
+            print(test_y[oo][0].item())
+            print(o[1].item())
+            print(test_y[oo][1].item())
+            print('+++')
+
+
             xp1 = float( o[0].item() ) - float( test_y[oo][0].item() )
             xp2 = float( o[1].item() ) - float( test_y[oo][1].item() )
 
@@ -343,7 +351,7 @@ if __name__ == '__main__':
 
     #NET
 
-    '''
+    
     ppp2 = 0
     ppp0 = 0
 
@@ -525,7 +533,7 @@ if __name__ == '__main__':
             tt = tt +1
         
         test_val2()
-    
+    '''
 
 
 

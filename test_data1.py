@@ -31,13 +31,13 @@ def get_test_data() :
                 k = k + 1
                 j = 0
             
-            elif uu == 'a709' :
+            elif uu == 'a56d' :
                 data0[0] = int(row[13])
             
-            elif uu == 'a56d' :
+            elif uu == 'a537' :
                 data0[1] = int(row[13])
             
-            elif uu == 'a537' :
+            elif uu == 'a709' :
                 data0[2] = int(row[13])
 
             if data0[0] != 0 and data0[1] != 0 and data0[2] != 0 :
@@ -116,8 +116,8 @@ def get_test_data() :
             i[3] = float( i[3] )
             i[4] = float( i[4] )
 
-            #print(i)
+            print(i)
         
         return data2
 
-#get_test_data()
+get_test_data()

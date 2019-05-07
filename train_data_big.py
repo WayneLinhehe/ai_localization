@@ -72,7 +72,7 @@ def get_train_data() :
             i[3] = float( i[3] )
             i[4] = float( i[4] )
 
-            #print(i)
+            print(i)
         
         return data1
 
@@ -121,7 +121,7 @@ def get_train_data_half() :
                 if data0[0] != 0 and data0[1] != 0 and data0[2] != 0 :
                     #print( i , "  " , data0 )
                     
-                    if j != 0 and j < 10 :
+                    if j != 0 and j < 40 :
                     #if j != 0 and j < 9 :
                         data1.append( data0 )
                         i = i + 1
@@ -144,7 +144,7 @@ def get_train_data_half() :
             i[3] = float( i[3] )
             i[4] = float( i[4] )
 
-            #print(i)
+            print(i)
         
         return data1
 
@@ -193,7 +193,7 @@ def get_train_data_quarter() :
                 if data0[0] != 0 and data0[1] != 0 and data0[2] != 0 :
                     #print( i , "  " , data0 )
                     
-                    if j != 0 and j < 10 :
+                    if j != 0 and j < 40 :
                     #if j != 0 and j < 9 :
                         data1.append( data0 )
                         i = i + 1
@@ -216,9 +216,9 @@ def get_train_data_quarter() :
             i[3] = float( i[3] )
             i[4] = float( i[4] )
 
-            #print(i)
+            print(i)
         
         return data1
 
 
-#get_train_data_half()
+get_train_data_quarter()
