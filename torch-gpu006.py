@@ -4,7 +4,6 @@ import torch.utils.data as Data
 import math
 
 
-
 # new
 from train_data_all import get_train_data_mid
 from train_data_all import get_train_data_big
@@ -18,9 +17,9 @@ from test_data_all import get_test_data_all
 
 
 
-#regresion half data
+#
 
-# last 1~2
+# mid 3~4
 
 if __name__ == '__main__':
 
@@ -30,7 +29,7 @@ if __name__ == '__main__':
 
     #train_net 
     
-    data7 = get_train_data_big()
+    data7 = get_train_data_mid()
     
     data0=[]
     data1=[]
@@ -67,7 +66,7 @@ if __name__ == '__main__':
 
 
     #test_data
-    data8 = get_test_data_big()
+    data8 = get_test_data_mid()
 
     data0=[]
     data1=[]
@@ -127,7 +126,6 @@ if __name__ == '__main__':
             self.predict = torch.nn.Linear(128, 2, bias=True)   # 输出层线性输出
 
         def forward(self, x):   # 这同时也是 Module 中的 forward 功能
-            
             '''
             x = F.relu(self.hidden0(x))      
             x = F.relu(self.hidden1(x))      
@@ -136,8 +134,8 @@ if __name__ == '__main__':
             x = F.selu(self.hidden0(x))      
             x = F.selu(self.hidden1(x))      
             x = F.selu(self.hidden2(x))
-            
-            x = self.predict(x)             
+
+            x = self.predict(x)            
             return x
     
     net = Net()
@@ -184,14 +182,13 @@ if __name__ == '__main__':
             oo = oo + 1
 
         print( 'epoch : ' , epoch , ' ,  mean dis error : ', xp44 / len(prediction) , ' m')
+
         
         if ( (epoch % 100) == 0 ) :
             all_zero = 0
         else :
             all_zero = all_zero + ( xp44 / len(prediction) )
             print( ' mean mean dis error : ',( all_zero / (epoch % 100) ) , ' m')
-
-
 
     #optimizer = torch.optim.SGD(net.parameters(), lr=0.0001)  # 传入 net 的所有参数, 学习率
     optimizer = torch.optim.Adam(net.parameters(), lr=0.001)  # 传入 net 的所有参数, 学习率

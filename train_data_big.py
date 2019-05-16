@@ -20,6 +20,12 @@ def get_train_data() :
         j = 0
         k = 0
 
+        '''
+        A5AB潮與主機
+        A5DD預先桌子
+        A6DD我桌左側
+        '''
+
         # 以迴圈輸出每一列
         for row in rows:
 
