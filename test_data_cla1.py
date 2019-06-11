@@ -1,5 +1,4 @@
 import csv
-
 # 開啟 CSV 檔案
 
 
@@ -40,7 +39,7 @@ def get_test_data() :
             if data0[0] != 0 and data0[1] != 0 and data0[2] != 0 :
                 #print( i , "  " , data0 )
                 
-                if j != 0 and j < 9 :
+                if j != 0 and j < 9 :  #9
                     data1.append( data0 )
                     i = i + 1
                     
@@ -109,6 +108,7 @@ def get_test_data() :
             i[3] = float( i[3] )
 
             #print(i)
+
         '''
         for j in data2 :
             pass
@@ -138,8 +138,13 @@ def get_test_data() :
             k[ int(pq) + 3 ] = 1
             #print(k)
         '''
-
+        
+        print('hey')
+        print('hey')
+        print('hey')
+        print('star')
+        print('dash!')
 
         return data2
 
-get_test_data()
+#get_test_data()

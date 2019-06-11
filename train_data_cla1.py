@@ -30,17 +30,17 @@ def get_train_data() :
                 
                 k = k + 1
                 j = 0
-            elif uu == 'a5dd' :
+            elif uu == 'a5dd' :              #後方遠離門角
                 data0[0] = int(row[13])
-            elif uu == 'a5ab' :
+            elif uu == 'a5ab' :              #後方門左上角
                 data0[1] = int(row[13])
-            elif uu == 'a6dd' :
+            elif uu == 'a6dd' :              #前方門左上角
                 data0[2] = int(row[13])
 
             if data0[0] != 0 and data0[1] != 0 and data0[2] != 0 :
                 #print( i , "  " , data0 )
                 
-                if j != 0 and j < 9 :
+                if j != 0 and j < 5 : #9
                     data1.append( data0 )
                     i = i + 1
                     
@@ -61,7 +61,7 @@ def get_train_data() :
 
             i[3] = float( i[3] )
 
-            #print(i)
+            print(i)
         '''
         for j in data1 :
             pass
@@ -91,8 +91,13 @@ def get_train_data() :
             k[ int(pq) + 3 ] = 1
             #print(k)
         '''
-
+        print('hey')
+        print('hey')
+        print('hey')
+        print('star')
+        print('dash?')
 
         return data1
 
-get_train_data()
+if __name__ == '__main__':
+    get_train_data()
